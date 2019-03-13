@@ -1,7 +1,7 @@
 <form>
-  <label for="spreadsheet-id-input">
+  <label for="spreadsheetId">
     Spreadsheet id :
   </label>
-  <input type="text" id="spreadsheet-id-input" />
+  <input type="text" id="spreadsheetId" [(ngModel)]="spreadsheetId" name="spreadsheetId" />
   <button (click)="getSpreadsheet()">Valider</button>
 </form>

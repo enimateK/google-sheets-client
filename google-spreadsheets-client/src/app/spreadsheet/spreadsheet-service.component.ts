@@ -7,7 +7,7 @@ export class SpreadsheetService {
 
   constructor(private http: HttpClient) { }
 
-  getSpreadsheet(): Observable<any> {
-    return this.http.get('');
+  getSpreadsheet(spreadsheetId): Observable<any> {
+    return this.http.get('http://localhost:9998/get/' + spreadsheetId);
   }
 }
