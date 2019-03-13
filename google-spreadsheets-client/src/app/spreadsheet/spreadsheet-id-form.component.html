@@ -4,4 +4,5 @@
   </label>
   <input type="text" id="spreadsheetId" [(ngModel)]="spreadsheetId" name="spreadsheetId" />
   <button (click)="getSpreadsheet()">Valider</button>
+  <app-spreadsheet-table *ngIf="spreadsheetFound" [spreadsheet]="spreadsheet"></app-spreadsheet-table>
 </form>

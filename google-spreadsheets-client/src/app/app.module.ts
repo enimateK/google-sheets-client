@@ -8,6 +8,7 @@ import {SpreadsheetIdFormComponent} from "./spreadsheet/spreadsheet-id-form.comp
 import {SpreadsheetService} from "./spreadsheet/spreadsheet-service.component";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
+import {SpreadsheetTableComponent} from "./spreadsheet/spreadsheet-table.component";
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import {FormsModule} from "@angular/forms";
     FooterComponent,
     HeaderComponent,
     SpreadsheetIdFormComponent,
+    SpreadsheetTableComponent,
   ],
   imports: [
     BrowserModule,
