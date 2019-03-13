@@ -7,7 +7,9 @@ import {SpreadsheetService} from "./spreadsheet-service.component";
   styleUrls: ['./spreadsheet-id-form.component.css']
 })
 export class SpreadsheetIdFormComponent implements OnInit {
-  spreadsheetId: any;
+  spreadsheetId: string;
+  spreadsheetFound = false;
+  spreadSheet: any;
 
   constructor( private spreadsheetService: SpreadsheetService
   ) { }
@@ -16,8 +18,10 @@ export class SpreadsheetIdFormComponent implements OnInit {
   }
 
   getSpreadsheet() {
+    this.spreadsheetFound = false;
     this.spreadsheetService.getSpreadsheet(this.spreadsheetId).subscribe((data) => {
-      console.log(data);
+      this.spreadSheet = data;
+      this.spreadsheetFound = true;
     });
   }
 }
