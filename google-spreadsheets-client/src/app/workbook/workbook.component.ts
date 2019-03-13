@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { HttpModule } from "@angular/http"
-import { Workbook } from './model/Workbook';
+import { Workbook } from '../model/Workbook';
 import { WorkbookService } from './Workbook.service';
 
 @Component({

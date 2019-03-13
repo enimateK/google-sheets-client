@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http } from "@angular/http";
 import { Observable } from 'rxjs';
-import { Workbook } from './model/Workbook';
+import { Workbook } from '../model/Workbook';
 import 'rxjs/Rx';
 
 @Injectable()
