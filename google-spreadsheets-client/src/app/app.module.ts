@@ -9,6 +9,8 @@ import {SpreadsheetService} from "./spreadsheet/spreadsheet-service.component";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import {SpreadsheetTableComponent} from "./spreadsheet/spreadsheet-table.component";
+import {WorkbookService} from "./workbook/workbook.service";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -22,8 +24,12 @@ import {SpreadsheetTableComponent} from "./spreadsheet/spreadsheet-table.compone
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    HttpModule,
   ],
-  providers: [SpreadsheetService],
+  providers: [
+    SpreadsheetService,
+    WorkbookService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,7 +2,24 @@
   <label for="spreadsheetId">
     Spreadsheet id :
   </label>
-  <input type="text" id="spreadsheetId" [(ngModel)]="spreadsheetId" name="spreadsheetId" />
-  <button (click)="getSpreadsheet()">Valider</button>
-  <app-spreadsheet-table *ngIf="spreadsheetFound"></app-spreadsheet-table>
+  <input class="form-control" type="text" id="spreadsheetId" [(ngModel)]="spreadsheetId" name="spreadsheetId" />
+  <button class="btn btn-primary" (click)="getSpreadsheet()">Valider</button>
+  <div *ngIf="spreadsheetFound">
+    <div *ngFor="let sheet of spreadSheet | keyvalue">
+      <h1>{{sheet.key}}</h1>
+      <table class="table">
+        <tr *ngFor="let line of sheet.value | keyvalue; let lineIndex = index">
+          <td *ngFor="let cell of line.value | keyvalue; let columnIndex = index">
+            <input type="hidden" value="{{sheet.key}}" />
+            <input type="hidden" value="{{line.key}}" />
+            <input type="hidden" value="{{cell.key}}" />
+            <input type="hidden" value="{{lineIndex}}" />
+            <input type="hidden" value="{{columnIndex}}" />
+            <b>{{ cell.key }}</b> : <input class="form-control" type="text" (change)=cellChanged($event) value ="{{ cell.value }}"/>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <button class="btn btn-primary" (click)="registerSpreadsheet()">Enregistrer</button>
+  </div>
 </form>
