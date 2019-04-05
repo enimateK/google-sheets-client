@@ -8,7 +8,7 @@
     <div *ngFor="let sheet of spreadSheet | keyvalue">
       <h1>{{sheet.key}}</h1>
       <table class="table">
-        <tr *ngFor="let line of sheet.value | keyvalue; let lineIndex = index">
+        <tr *ngFor="let line of sheet.value.rows | keyvalue; let lineIndex = index">
           <td *ngFor="let cell of line.value | keyvalue; let columnIndex = index">
             <input type="hidden" value="{{sheet.key}}" />
             <input type="hidden" value="{{line.key}}" />
