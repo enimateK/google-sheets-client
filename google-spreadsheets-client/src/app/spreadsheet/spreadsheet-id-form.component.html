@@ -1,25 +1,98 @@
-<form>
-  <label for="spreadsheetId">
-    Spreadsheet id :
-  </label>
-  <input class="form-control" type="text" id="spreadsheetId" [(ngModel)]="spreadsheetId" name="spreadsheetId" />
-  <button class="btn btn-primary" (click)="getSpreadsheet()">Valider</button>
-  <div *ngIf="spreadsheetFound">
-    <div *ngFor="let sheet of spreadSheet | keyvalue">
-      <h1>{{sheet.key}}</h1>
-      <table class="table">
-        <tr *ngFor="let line of sheet.value.rows | keyvalue; let lineIndex = index">
-          <td *ngFor="let cell of line.value | keyvalue; let columnIndex = index">
-            <input type="hidden" value="{{sheet.key}}" />
-            <input type="hidden" value="{{line.key}}" />
-            <input type="hidden" value="{{cell.key}}" />
-            <input type="hidden" value="{{lineIndex}}" />
-            <input type="hidden" value="{{columnIndex}}" />
-            <b>{{ cell.key }}</b> : <input class="form-control" type="text" (change)=cellChanged($event) value ="{{ cell.value }}"/>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <button class="btn btn-primary" (click)="registerSpreadsheet()">Enregistrer</button>
+<form><br /><br /><br />
+  <div *ngIf="!spreadsheetFound">
+    <label for="spreadsheetId">
+      Spreadsheet id :
+    </label>
+    <input class="form-control" type="text" id="spreadsheetId" [(ngModel)]="spreadsheetId" name="spreadsheetId" />
+    <button class="btn btn-primary" (click)="getSpreadsheet()">Valider</button>
   </div>
+  <div *ngIf="spreadsheetFound && !showFormationDetail && !showCodeDetail">
+    <button class="btn btn-primary form-control" (click)="showFormations = !showFormations">Voir les formations</button><br /><br />
+    <div *ngIf="showFormations">
+      <div *ngFor="let line of spreadSheet['formations'].rows | keyvalue; let lineIndex = index">
+        <table class="table">
+          <tr>
+            <td (click)="displayFormationDetails(line.key)">{{line.value['code_formation']}} - {{line.value['libelle']}}</td>
+          </tr>
+        </table>
+        <table *ngIf="isFormationDisplayed(line.key)" style="margin-left: auto;margin-right: auto;background-color:lightgrey">
+          <tr *ngFor="let cell of line.value | keyvalue; let columnIndex = index">
+            <td>
+              <input type="hidden" value="formations" />
+              <input type="hidden" value="{{line.key}}" />
+              <input type="hidden" value="{{cell.key}}" />
+              <input type="hidden" value="{{lineIndex}}" />
+              <input type="hidden" value="{{columnIndex}}" />
+              <label> <b> {{cell.key}} : </b><input class="form-control" type="text" (change)=cellChanged($event) value ="{{ cell.value }}"/></label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button class="btn btn-primary" (click)="getFormationPDF(line.value['code_formation'])">Exporter au format PDF</button>
+            </td>
+            <td>
+              <button class="btn btn-primary" (click)="showFormationDetail = !showFormationDetail; selectedFormation = line.value['code_formation'];">Voir les détails</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <button class="btn btn-primary form-control" (click)="showCodes = !showCodes">Voir les codes tarifaires</button>
+    <div *ngIf="showCodes">
+      <div *ngFor="let line of spreadSheet['codes_tarifaires'].rows | keyvalue; let lineIndex = index">
+        <table class="table">
+          <tr>
+            <td (click)="displayFormationDetails(line.key)">{{line.value['code_tarifaire']}}</td>
+          </tr>
+        </table>
+        <table *ngIf="isFormationDisplayed(line.key)" style="background-color:lightgrey">
+          <tr *ngFor="let cell of line.value | keyvalue; let columnIndex = index">
+            <td>
+              <input type="hidden" value="codes_tarifaires" />
+              <input type="hidden" value="{{line.key}}" />
+              <input type="hidden" value="{{cell.key}}" />
+              <input type="hidden" value="{{lineIndex}}" />
+              <input type="hidden" value="{{columnIndex}}" />
+              <label> <b> {{cell.key}} : </b><input class="form-control" type="text" (change)=cellChanged($event) value ="{{ cell.value }}"/></label>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <button class="btn btn-primary" (click)="showCodeDetail = !showCodeDetail; selectedCode = line.value['code_tarifaire'];">Voir les détails</button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <br />
+    <br />
+    <button class="btn btn-primary form-control" (click)="getPDF()">Générer PDF</button>
+    <input class="form-control" type="text" [(ngModel)]="modelId" name="modelId"/>
+  </div>
+  <div *ngIf="showFormationDetail">
+    <button class="btn btn-primary" (click)="showFormationDetail = !showFormationDetail">Retour vers les formations</button>
+    <app-formation-detail [spreadSheet]="spreadSheet" [formation]="selectedFormation"></app-formation-detail>
+  </div>
+  <div *ngIf="showCodeDetail">
+    <button class="btn btn-primary" (click)="showCodeDetail = !showCodeDetail">Retour vers les formations</button>
+    <app-code-detail [spreadSheet]="spreadSheet" [code]="selectedCode"></app-code-detail>
+  </div>
+  <!--<div *ngIf="spreadsheetFound">-->
+    <!--<div *ngFor="let sheet of spreadSheet | keyvalue">-->
+      <!--<h1>{{sheet.key}}</h1>-->
+      <!--<table class="table">-->
+        <!--<tr *ngFor="let line of sheet.value.rows | keyvalue; let lineIndex = index">-->
+          <!--<td *ngFor="let cell of line.value | keyvalue; let columnIndex = index">-->
+            <!--<input type="hidden" value="{{sheet.key}}" />-->
+            <!--<input type="hidden" value="{{line.key}}" />-->
+            <!--<input type="hidden" value="{{cell.key}}" />-->
+            <!--<input type="hidden" value="{{lineIndex}}" />-->
+            <!--<input type="hidden" value="{{columnIndex}}" />-->
+            <!--<b>{{ cell.key }}</b> : <input class="form-control" type="text" (change)=cellChanged($event) value ="{{ cell.value }}"/>-->
+          <!--</td>-->
+        <!--</tr>-->
+      <!--</table>-->
+    <!--</div>-->
+    <!--<button class="btn btn-primary" (click)="registerSpreadsheet()">Enregistrer</button>-->
+  <!--</div>-->
 </form>

@@ -8,9 +8,10 @@ import {SpreadsheetIdFormComponent} from "./spreadsheet/spreadsheet-id-form.comp
 import {SpreadsheetService} from "./spreadsheet/spreadsheet-service.component";
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
-import {SpreadsheetTableComponent} from "./spreadsheet/spreadsheet-table.component";
 import {WorkbookService} from "./workbook/workbook.service";
 import {HttpModule} from "@angular/http";
+import {FormationDetailComponent} from "./spreadsheet/formation-detail.component";
+import {CodeDetailComponent} from "./spreadsheet/code-detail.component";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {HttpModule} from "@angular/http";
     FooterComponent,
     HeaderComponent,
     SpreadsheetIdFormComponent,
-    SpreadsheetTableComponent,
+    FormationDetailComponent,
+    CodeDetailComponent,
   ],
   imports: [
     BrowserModule,

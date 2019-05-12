@@ -1,0 +1,14 @@
+<div>
+  <h1>Détails tarifaires de la formation {{code}}</h1>
+  <div *ngFor="let line of spreadSheet['taches'].rows | keyvalue; let lineIndex = index">
+    <div *ngIf="line.value['code_tarifaire'] === code">
+      <div class="card">
+        <p><b>{{line.value['action']}}</b></p>
+        <p>Temps prévu : {{line.value['temps']}}</p>
+        <p>Temps minimum estimé : {{line.value['temps_min']}}</p>
+        <p>Date début : {{line.value['date_debut']}}</p>
+        <p>Date fin : {{line.value['date_fin']}}</p>
+      </div>
+    </div>
+  </div>
+</div>

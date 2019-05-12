@@ -1,0 +1,11 @@
+<div>
+  <h1>Détails de la formation {{formation}}</h1>
+  <div *ngFor="let line of spreadSheet['elements'].rows | keyvalue; let lineIndex = index">
+    <div *ngIf="line.value['code_formation'] === formation">
+      <div class="card">
+        <p><b>{{line.value['categorie']}} : </b>{{line.value['description']}}</p>
+        <label><b>Etat : </b> <input type="checkbox"/></label>
+      </div>
+    </div>
+  </div>
+</div>
